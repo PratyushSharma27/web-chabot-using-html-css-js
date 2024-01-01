@@ -1,0 +1,107 @@
+/* Reset default styles for heading, paragraph, and list elements */
+h1, h2, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set the default font for the entire document */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Apply background color and padding to the body */
+body {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+/* Center the chatbot on the page */
+.chatbot {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Style the header of the chatbot */
+.chatbot header {
+  background-color: #4285f4;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Style the chatbox */
+.chatbox {
+  list-style-type: none;
+  padding: 15px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+/* Style incoming and outgoing messages in the chatbox */
+.chat {
+  margin-bottom: 15px;
+}
+
+.incoming {
+  display: flex;
+  align-items: flex-start;
+}
+
+.incoming .material-symbols-outlined {
+  margin-right: 10px;
+  font-size: 24px;
+  color: #4285f4;
+}
+
+.incoming p {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Style the chat input area */
+.chat-input {
+  display: flex;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+textarea {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#send-btn {
+  cursor: pointer;
+  font-size: 24px;
+  color: #4285f4;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 600px) {
+  .chatbot {
+    border-radius: 0;
+    margin: 0;
+  }
+  
+  .chatbox {
+    max-height: 200px;
+  }
+  
+  .chat-input {
+    flex-direction: column;
+  }
+  
+  textarea {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
