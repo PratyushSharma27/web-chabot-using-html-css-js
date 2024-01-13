@@ -5,16 +5,18 @@ const chatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector(".chat-input span");
 
 let userMessage = null; // Variable to store user's message
-const API_KEY="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"
+const API_KEY = "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"; // Paste your API key here
 const inputInitHeight = chatInput.scrollHeight;
 
 const createChatLi = (message, className) => {
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", className);
-    const chatContent = className === "outgoing" ? `<p>${message}</p>` : `<span class="material-symbols-outlined">smart_toy</span><p>${message}</p>`;
+    const chatContent = className === "outgoing"
+        ? `<p>${message}</p>`
+        : `<span class="material-symbols-outlined">smart_toy</span><p>${message}</p>`;
     chatLi.innerHTML = chatContent;
     return chatLi;
-}
+};
 
 const generateResponse = async (chatElement) => {
     const API_URL = "https://api.openai.com/v1/chat/completions";
@@ -34,16 +36,26 @@ const generateResponse = async (chatElement) => {
 
     try {
         const response = await fetch(API_URL, requestOptions);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
-        messageElement.textContent = data.choices[0].message.content.trim();
+
+        if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
+            messageElement.textContent = data.choices[0].message.content.trim();
+        } else {
+            throw new Error("Invalid response from the API");
+        }
     } catch (error) {
-        console.error("Error fetching response from API:", error);
+        console.error("Error fetching response from API:", error.message);
         messageElement.classList.add("error");
         messageElement.textContent = "Oops! Something went wrong. Please try again.";
     } finally {
         chatbox.scrollTo(0, chatbox.scrollHeight);
     }
-}
+};
 
 const handleChat = () => {
     userMessage = chatInput.value.trim();
@@ -61,7 +73,7 @@ const handleChat = () => {
         chatbox.scrollTo(0, chatbox.scrollHeight);
         generateResponse(incomingChatLi);
     }, 600);
-}
+};
 
 chatInput.addEventListener("input", () => {
     chatInput.style.height = `${inputInitHeight}px`;
